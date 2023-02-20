@@ -1,0 +1,28 @@
+{
+  "name": "project-to-do",
+  "version": "1.0.0",
+  "description": "A simple To-Do-List web application built with JavaScript; using the publisher-subscriber design pattern and the local storage API.",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "watch": "webpack --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kwadwo-Firempong-Boakye/Project-To-Do.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kwadwo-Firempong-Boakye/Project-To-Do/issues"
+  },
+  "homepage": "https://github.com/Kwadwo-Firempong-Boakye/Project-To-Do#readme",
+  "devDependencies": {
+    "css-loader": "^6.7.3",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
+  }
+}
