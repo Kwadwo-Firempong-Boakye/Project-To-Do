@@ -1,4 +1,4 @@
-import logoBlue from "./Images/Taskie-logo-blue.png";
+import logoBlue from "./Images/Taskie-logo-deep-blue.png";
 import logoSky from "./Images/Taskie-logo-sky.png";
 import githubSign from "./Images/github-sign.png";
 import burgerMenu from "./Images/burger-menu.svg";
@@ -13,15 +13,40 @@ function createHamburger() {
 
 	hamburger.addEventListener("click", () => {
 		const menuArea = document.querySelector(".menu-area");
-		menuArea.classList.toggle("hide-side-menu");
+		const tasksAreaOverlay = document.querySelector(".tasks-area-overlay");
+		const detailsArea = document.querySelector(".details-area");
+
+		const compStyle = window.getComputedStyle(menuArea);
+		const checkDisplayState = compStyle.display !== "none";
+
+		detailsArea.classList.add("no-display");
+		detailsArea.classList.add("hide-details-panel");
+
+		if (checkDisplayState) {
+			setTimeout(() => {
+				menuArea.classList.add("no-display");
+				tasksAreaOverlay.classList.add("no-display");
+			}, 200);
+			menuArea.classList.toggle("hide-side-menu");
+		} else {
+			menuArea.classList.remove("no-display");
+			setTimeout(() => {
+				menuArea.classList.toggle("hide-side-menu");
+				tasksAreaOverlay.classList.remove("no-display");
+			}, 10);
+		}
 	});
 
 	window.addEventListener("resize", () => {
 		const menuArea = document.querySelector(".menu-area");
 		if (window.innerWidth <= 768) {
 			menuArea.classList.add("hide-side-menu");
+			menuArea.classList.add("no-display");
 		} else {
-			menuArea.classList.remove("hide-side-menu");
+			menuArea.classList.remove("no-display");
+			setTimeout(() => {
+				menuArea.classList.remove("hide-side-menu");
+			}, 10);
 		}
 	});
 }
@@ -79,7 +104,7 @@ function createDashboardStructure() {
 	dashContainer.classList.add("dash-container");
 	menuArea.classList.add("menu-area");
 	tasksArea.classList.add("tasks-area");
-	detailsArea.classList.add("details-area");
+	detailsArea.classList.add("details-area", "no-display", "hide-details-panel");
 }
 
 function createSideMenu() {
