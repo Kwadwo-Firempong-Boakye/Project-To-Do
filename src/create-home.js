@@ -32,8 +32,10 @@ function createHamburger() {
 			menuArea.classList.remove("no-display");
 			setTimeout(() => {
 				menuArea.classList.toggle("hide-side-menu");
-				tasksAreaOverlay.classList.remove("no-display");
 			}, 10);
+			setTimeout(() => {
+				tasksAreaOverlay.classList.remove("no-display");
+			}, 200);
 		}
 	});
 
