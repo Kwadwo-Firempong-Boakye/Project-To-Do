@@ -6,14 +6,14 @@ import {
 	createSideMenu,
 } from "./create-home";
 import renderDetails from "./create-details-panel.js";
-import { renderTaskHeading, renderTask } from "./create-task-panel";
+import { renderTaskArea, renderTask } from "./create-task-panel";
 
 const createInterface = () => {
 	createHeader();
 	createHamburger();
 	createDashboardStructure();
 	createSideMenu();
-	renderTaskHeading("All Tasks");
+	renderTaskArea("All Tasks");
 	renderTask();
 	renderTask();
 	renderTask();
