@@ -8,6 +8,7 @@ function renderDetails(
 	taskPriority = "low"
 ) {
 	const detailsArea = document.querySelector(".details-area");
+	const tasksArea = document.querySelector(".tasks-area");
 	const tasksAreaOverlay = document.querySelector(".tasks-area-overlay");
 	const backArrow = document.createElement("img");
 	const detailsTitle = document.createElement("h3");
@@ -41,6 +42,7 @@ function renderDetails(
 
 	backArrow.addEventListener("click", () => {
 		detailsArea.classList.add("hide-details-panel");
+		tasksArea.classList.remove("no-pointer-events");
 		// tasksAreaOverlay.classList.add("no-display");
 	});
 }
