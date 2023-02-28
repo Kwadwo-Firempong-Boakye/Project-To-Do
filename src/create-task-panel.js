@@ -1,4 +1,5 @@
-function renderTaskHeading(data) {
+function renderTaskArea(data) {
+	const menuArea = document.querySelector(".menu-area");
 	const tasksArea = document.querySelector(".tasks-area");
 	const tasksAreaOverlay = document.createElement("div");
 	const heading = document.createElement("h2");
@@ -7,6 +8,16 @@ function renderTaskHeading(data) {
 
 	tasksAreaOverlay.classList.add("tasks-area-overlay", "no-display");
 	heading.innerText = data;
+
+	tasksAreaOverlay.addEventListener("click", () => {
+		menuArea.classList.add("hide-side-menu");
+		menuArea.classList.add("no-display");
+		tasksAreaOverlay.classList.add("no-display");
+	});
+
+	// tasksArea.addEventListener("click", () => {
+	// 	console.log("clicked");
+	// });
 }
 
 function renderTask(
@@ -40,7 +51,8 @@ function renderTask(
 		// tasksAreaOverlay.classList.remove("no-display");
 		detailsArea.classList.remove("no-display");
 		detailsArea.classList.remove("hide-details-panel");
+		tasksArea.classList.add("no-pointer-events");
 	});
 }
 
-export { renderTaskHeading, renderTask };
+export { renderTaskArea, renderTask };
