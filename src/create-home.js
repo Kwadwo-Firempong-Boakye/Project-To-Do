@@ -1,7 +1,7 @@
 import logoBlue from "./Images/Taskie-logo-deep-blue.png";
-import logoSky from "./Images/Taskie-logo-sky.png";
 import githubSign from "./Images/github-sign.png";
 import burgerMenu from "./Images/burger-menu.svg";
+import { showForm } from "./create-task-form";
 
 function createHamburger() {
 	const projectContainer = document.querySelector("#project-container");
@@ -14,6 +14,7 @@ function createHamburger() {
 	hamburger.addEventListener("click", () => {
 		const menuArea = document.querySelector(".menu-area");
 		const tasksAreaOverlay = document.querySelector(".tasks-area-overlay");
+		const tasksArea = document.querySelector(".tasks-area");
 		const detailsArea = document.querySelector(".details-area");
 
 		const compStyle = window.getComputedStyle(menuArea);
@@ -21,6 +22,7 @@ function createHamburger() {
 
 		detailsArea.classList.add("no-display");
 		detailsArea.classList.add("hide-details-panel");
+		tasksArea.classList.remove("no-pointer-events");
 
 		if (checkDisplayState) {
 			setTimeout(() => {
@@ -88,6 +90,9 @@ function createHeader() {
 	logoArea.classList.add("logo-area");
 	headerMenu.classList.add("header-menu");
 	headerNewTaskButton.classList.add("header-button");
+
+	//Event listener for new task button
+	headerNewTaskButton.addEventListener("click", showForm);
 }
 
 function createDashboardStructure() {
@@ -112,6 +117,8 @@ function createDashboardStructure() {
 function createSideMenu() {
 	const menuArea = document.querySelector(".menu-area");
 	const menuItems = ["All Tasks", "Due today", "Due this week", "Completed"];
+	const detailsArea = document.querySelector(".details-area");
+	const tasksArea = document.querySelector(".tasks-area");
 
 	menuItems.forEach((item) => {
 		let menuItemContainer = document.createElement("div");
@@ -131,6 +138,14 @@ function createSideMenu() {
 
 		menuArea.append(menuItemContainer);
 		menuItemContainer.append(menuItemImage, menuItem);
+	});
+
+	menuArea.addEventListener("click", () => {
+		detailsArea.classList.add("hide-details-panel");
+		tasksArea.classList.remove("no-pointer-events");
+		setTimeout(() => {
+			detailsArea.classList.add("no-display");
+		}, 300);
 	});
 }
 
