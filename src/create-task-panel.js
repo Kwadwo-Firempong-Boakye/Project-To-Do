@@ -1,23 +1,9 @@
-function renderTaskArea(data) {
-	const menuArea = document.querySelector(".menu-area");
+function renderTaskHeading(data = "All Tasks") {
 	const tasksArea = document.querySelector(".tasks-area");
-	const tasksAreaOverlay = document.createElement("div");
 	const heading = document.createElement("h2");
 
-	tasksArea.append(tasksAreaOverlay, heading);
-
-	tasksAreaOverlay.classList.add("tasks-area-overlay", "no-display");
+	tasksArea.append(heading);
 	heading.innerText = data;
-
-	tasksAreaOverlay.addEventListener("click", () => {
-		menuArea.classList.add("hide-side-menu");
-		menuArea.classList.add("no-display");
-		tasksAreaOverlay.classList.add("no-display");
-	});
-
-	// tasksArea.addEventListener("click", () => {
-	// 	console.log("clicked");
-	// });
 }
 
 function renderTask(
@@ -35,7 +21,7 @@ function renderTask(
 	const taskName = document.createElement("p");
 	const taskEdit = document.createElement("button");
 	const detailsArea = document.querySelector(".details-area");
-	const tasksAreaOverlay = document.querySelector(".tasks-area-overlay");
+
 
 	tasksArea.append(taskContainer);
 	taskContainer.append(taskCheckLabel, taskName, taskEdit);
@@ -48,11 +34,12 @@ function renderTask(
 	taskEdit.innerText = "Modify";
 
 	taskContainer.addEventListener("click", () => {
-		// tasksAreaOverlay.classList.remove("no-display");
 		detailsArea.classList.remove("no-display");
-		detailsArea.classList.remove("hide-details-panel");
-		tasksArea.classList.add("no-pointer-events");
+		setTimeout(() => {
+			detailsArea.classList.remove("hide-details-panel");
+			tasksArea.classList.add("no-pointer-events");
+		}, 10);
 	});
 }
 
-export { renderTaskArea, renderTask };
+export { renderTaskHeading, renderTask };
