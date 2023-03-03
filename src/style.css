@@ -87,6 +87,7 @@ body {
 	height: calc(100dvh - 62px);
 	background: var(--white);
 	position: relative;
+	overflow: hidden;
 }
 
 .menu-area {
@@ -214,11 +215,6 @@ body {
 }
 
 .task-container {
-	/* background: #ebf4ff; */
-	/* padding: 0.75em; */
-	/* position: relative; */
-	/* height: 1.75rem; */
-	/* justify-content: space-between; */
 	display: flex;
 	align-items: center;
 	flex-wrap: wrap;
@@ -227,6 +223,7 @@ body {
 	font-family: Varela;
 	border-radius: 5px;
 	border-bottom: 1px solid #c4d5f0;
+	cursor: pointer;
 }
 
 .task-container p {
@@ -355,6 +352,160 @@ body {
 	border-radius: 5px;
 }
 
+/*FORM AREA*/
+
+.container-overlay {
+	position: absolute;
+	top: 0;
+	z-index: 6;
+	width: 100vw;
+	height: 100vh;
+	background: black;
+	opacity: 0.7;
+	transition: all 0.3s ease-in-out;
+	margin: 0;
+}
+
+.form-container {
+	position: absolute;
+	top: 0;
+	z-index: 11;
+	width: 100%;
+	height: calc(100% - 8rem);
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
+	padding: 4rem 0;
+	transition: all 0.3s ease-in-out;
+}
+
+.form-content {
+	color: white;
+	background: linear-gradient(45deg, #0d3562, #266abe);
+	display: flex;
+	flex-direction: column;
+	padding: 0.5rem 1rem 2rem 1rem;
+	gap: 1rem;
+	font-family: Varela;
+	border-radius: 0.75rem;
+	width: max(25vw, 300px);
+	transition: all 0.3s ease-in-out;
+}
+
+.form-title-container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-bottom: 2px solid #45caff;
+	margin: 0.5rem 0;
+}
+
+.form-title {
+	font-family: Varela;
+	font-size: 1.1rem;
+	font-weight: bold;
+	letter-spacing: 1px;
+}
+
+.close-button {
+	font-size: 1.1rem;
+	color: #ffffff;
+	width: 1.7em;
+	height: 1.7em;
+	border: none;
+	border-radius: 50%;
+	background: #092d59;
+	padding: 0.2rem;
+	transition: all 0.3s ease-in-out;
+}
+
+.form-content input[type="text"] {
+	width: 100%;
+	margin: 0.5rem 0;
+	padding: 0.5rem;
+	box-sizing: border-box;
+	border: none;
+	border-radius: 0.5rem;
+	height: 2rem;
+	font-family: Varela;
+}
+
+.form-content textarea {
+	width: 100%;
+	height: 4rem;
+	margin: 0.5rem 0 0.3rem 0;
+	padding: 0.5rem;
+	box-sizing: border-box;
+	border: none;
+	border-radius: 0.5rem;
+	resize: none;
+	font-family: Varela;
+}
+
+.form-content input[type="date"] {
+	width: 100%;
+	margin: 0.5rem 0;
+	padding: 0.5rem;
+	box-sizing: border-box;
+	border: none;
+	border-radius: 0.5rem;
+	height: 2rem;
+	font-family: Varela;
+}
+
+.form-content fieldset {
+	display: flex;
+	justify-content: space-between;
+	border: 2px solid #fff;
+	border-radius: 0.5rem;
+	padding-bottom: 1rem;
+	margin-bottom: 0.75rem;
+}
+
+.form-content legend {
+	padding: 0.5rem;
+}
+
+.form-content input[type="radio"] {
+	accent-color: #45caff;
+}
+
+.form-container select {
+	height: 2rem;
+	border: none;
+	border-radius: 0.5rem;
+	margin: 0.5rem 0;
+	padding: 0.5rem;
+}
+
+.form-content option {
+	font-family: Varela;
+	font-size: 1rem;
+}
+
+.submit-button {
+	height: 2.5rem;
+	background: #45caff;
+	border-radius: 0.5rem;
+	border: none;
+	font-family: Varela;
+	font-size: 1.2rem;
+	margin-top: 1rem;
+	transition: all 0.3s ease-out;
+}
+
+/* .tasks-overlay {
+	position: absolute;
+	top: 0;
+	z-index: 4;
+	width: 100vw;
+	height: 100vh;
+	background: black;
+	opacity: 0.7;
+	transition: all 0.3s ease-in-out;
+	margin: 0;
+} */
+
 @media only screen and (min-width: 768px) {
 	.task-container:hover {
 		background-color: #9dc7f5;
@@ -399,6 +550,25 @@ body {
 		width: 2.5rem;
 		transition: all 0.3s ease-out;
 	}
+
+	.close-button:hover {
+		font-weight: bold;
+		background: #c92a12;
+		color: #fff;
+	}
+
+	.submit-button:hover {
+		background: #edea2b;
+		height: 3rem;
+	}
+
+	.submit-button:active {
+		background: #266abe;
+	}
+
+	.close-button:active {
+		background: #7c190a;
+	}
 }
 
 @media only screen and (max-width: 768px) {
@@ -416,14 +586,6 @@ body {
 		position: absolute;
 	}
 
-	.tasks-area-overlay {
-		position: absolute;
-		z-index: 4;
-		width: 100%;
-		height: 100%;
-		background: black;
-		opacity: 0.6;
-	}
 }
 
 @media only screen and (max-width: 450px) {
@@ -453,5 +615,14 @@ body {
 
 	.task-container button {
 		margin-bottom: 1rem;
+	}
+
+	.close-button {
+		background: #c92a12;
+		color: #fff;
+	}
+
+	.container-overlay {
+		height: 115dvh;
 	}
 }
