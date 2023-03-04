@@ -94,7 +94,7 @@ body {
 	width: 350px;
 	height: 100%;
 	border-right: 2px solid var(--divider-color);
-	background: var(--white);
+	background: #ffffff;
 	display: flex;
 	flex-direction: column;
 	padding-top: 1rem;
@@ -102,7 +102,6 @@ body {
 	transform: translateX(0px);
 	position: relative;
 	z-index: 6;
-	/* display: none; */
 }
 
 .tasks-area {
@@ -216,14 +215,29 @@ body {
 
 .task-container {
 	display: flex;
-	align-items: center;
-	flex-wrap: wrap;
+	/* align-items: center; */
 	background-color: #e3f0ff;
 	margin: 0.75rem 1rem 0.75rem 0;
 	font-family: Varela;
 	border-radius: 5px;
 	border-bottom: 1px solid #c4d5f0;
 	cursor: pointer;
+}
+
+.check-container {
+	width: 2.35rem;
+	display: flex;
+	align-items: center;
+	padding-left: 0.5rem;
+	padding-right: 1rem;
+	border-right: 2px solid #ffffff;
+}
+
+.text-container {
+	width: calc(100% - 2.35rem);
+	display: flex;
+	/* align-items: center; */
+	flex-wrap: wrap;
 }
 
 .task-container p {
@@ -234,8 +248,7 @@ body {
 }
 
 .task-container button {
-	margin-left: auto;
-	margin-right: 1rem;
+	margin: auto 1rem auto auto;
 	border: none;
 	background: rgb(255, 255, 255);
 	color: #043584;
@@ -248,7 +261,7 @@ body {
 
 .task-container label {
 	position: relative;
-	margin: 0.5rem;
+	margin-left: 0.5rem;
 	bottom: 4px;
 	cursor: pointer;
 }
@@ -572,10 +585,6 @@ body {
 }
 
 @media only screen and (max-width: 768px) {
-	.task-container button {
-		margin-bottom: 1rem;
-	}
-
 	.tasks-area h2 {
 		font-size: 1.5rem;
 		margin: 1.3rem;
@@ -585,7 +594,6 @@ body {
 		width: 275px;
 		position: absolute;
 	}
-
 }
 
 @media only screen and (max-width: 450px) {
@@ -624,5 +632,14 @@ body {
 
 	.container-overlay {
 		height: 115dvh;
+	}
+
+	.check-container {
+		align-items: flex-start;
+		border-right: none;
+	}
+
+	.task-container span {
+		margin-top: 1.5rem;
 	}
 }
