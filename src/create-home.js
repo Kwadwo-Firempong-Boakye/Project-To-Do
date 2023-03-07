@@ -27,7 +27,6 @@ function createHamburger() {
 		if (checkDisplayState) {
 			setTimeout(() => {
 				menuArea.classList.add("no-display");
-				tasksAreaOverlay.classList.add("no-display");
 			}, 200);
 			menuArea.classList.toggle("hide-side-menu");
 		} else {
@@ -116,7 +115,13 @@ function createDashboardStructure() {
 
 function createSideMenu() {
 	const menuArea = document.querySelector(".menu-area");
-	const menuItems = ["All Tasks", "Due today", "Due this week", "Completed"];
+	const menuItems = [
+		"All Tasks",
+		"Past Due",
+		"Due today",
+		"Due this week",
+		"Completed",
+	];
 	const detailsArea = document.querySelector(".details-area");
 	const tasksArea = document.querySelector(".tasks-area");
 
