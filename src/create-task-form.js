@@ -1,3 +1,5 @@
+import { createTaskData } from "./create-task-data";
+
 function taskForm() {
 	const projectContainer = document.querySelector("#project-container");
 	const projectContainerOverlay = document.createElement("div");
@@ -24,6 +26,8 @@ function taskForm() {
 	const taskProjectSelect = document.createElement("select");
 	const generalOption = document.createElement("option");
 	const submitButton = document.createElement("button");
+	const today = new Date().toISOString().split("T")[0];
+
 
 	projectContainer.append(taskFormContainer, projectContainerOverlay);
 	taskFormContainer.append(taskFormContent);
@@ -58,11 +62,8 @@ function taskForm() {
 	priorityFieldset.append(
 		priorityLegend,
 		taskPriorityLabelLow,
-		// taskPriorityInputLow,
 		taskPriorityLabelMedium,
-		// taskPriorityInputMedium,
 		taskPriorityLabelHigh
-		// taskPriorityInputHigh
 	);
 	taskPriorityLabelLow.append(taskPriorityInputLow);
 	taskPriorityLabelMedium.append(taskPriorityInputMedium);
@@ -110,14 +111,19 @@ function taskForm() {
 	submitButton.setAttribute("type", "submit");
 	taskPriorityInputLow.setAttribute("value", "low");
 	taskPriorityInputMedium.setAttribute("value", "medium");
-	taskPriorityInputMedium.setAttribute("value", "high");
+	taskPriorityInputHigh.setAttribute("value", "high");
 	generalOption.setAttribute("value", "General");
 
+	taskDueInput.setAttribute("min", today);
+
 	taskTitleInput.required = true;
+	taskDueInput.required = true;
 	taskProjectSelect.required = true;
 	taskPriorityInputLow.required = true;
+
 	close.addEventListener("click", closeForm);
 	taskFormContainer.addEventListener("click", closeForm);
+	taskFormContent.addEventListener("submit", submitForm);
 }
 
 function closeForm(e) {
@@ -137,6 +143,24 @@ function closeForm(e) {
 			taskFormContent.remove();
 		}, 300);
 	}
+}
+
+function resetForm() {
+	const projectContainerOverlay = document.querySelector(".container-overlay");
+	const taskFormContainer = document.querySelector(".form-container");
+	const taskFormContent = document.querySelector(".form-content");
+
+	projectContainerOverlay.style.transform = "scale(0)";
+	taskFormContainer.style.transform = "scale(0)";
+	taskFormContent.style.transform = "scale(0)";
+
+	taskFormContent.reset();
+
+	setTimeout(() => {
+		projectContainerOverlay.remove();
+		taskFormContainer.remove();
+		taskFormContent.remove();
+	}, 300);
 }
 
 function showForm() {
@@ -159,6 +183,12 @@ function showForm() {
 		taskFormContainer.style.transform = "scale(1)";
 		taskFormContent.style.transform = "scale(1)";
 	}, 200);
+}
+
+function submitForm(e) {
+	e.preventDefault();
+	createTaskData();
+	resetForm();
 }
 
 export { taskForm, closeForm, showForm };
