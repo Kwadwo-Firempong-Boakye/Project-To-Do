@@ -2,6 +2,7 @@ import logoBlue from "./Images/Taskie-logo-deep-blue.png";
 import githubSign from "./Images/github-sign.png";
 import burgerMenu from "./Images/burger-menu.svg";
 import { showForm } from "./create-task-form";
+import { clearDetails } from "./create-details-panel";
 
 function createHamburger() {
 	const projectContainer = document.querySelector("#project-container");
@@ -13,16 +14,11 @@ function createHamburger() {
 
 	hamburger.addEventListener("click", () => {
 		const menuArea = document.querySelector(".menu-area");
-		const tasksAreaOverlay = document.querySelector(".tasks-area-overlay");
 		const tasksArea = document.querySelector(".tasks-area");
 		const detailsArea = document.querySelector(".details-area");
 
 		const compStyle = window.getComputedStyle(menuArea);
 		const checkDisplayState = compStyle.display !== "none";
-
-		detailsArea.classList.add("no-display");
-		detailsArea.classList.add("hide-details-panel");
-		tasksArea.classList.remove("no-pointer-events");
 
 		if (checkDisplayState) {
 			setTimeout(() => {
@@ -34,10 +30,9 @@ function createHamburger() {
 			setTimeout(() => {
 				menuArea.classList.toggle("hide-side-menu");
 			}, 10);
-			setTimeout(() => {
-				tasksAreaOverlay.classList.remove("no-display");
-			}, 200);
 		}
+
+		clearDetails();
 	});
 
 	window.addEventListener("resize", () => {
