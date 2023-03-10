@@ -14,10 +14,6 @@ const createInterface = () => {
 	createDashboardStructure();
 	createSideMenu();
 	renderTaskHeading();
-	renderTask();
-	renderTask();
-	renderTask();
-	renderDetails();
 };
 
 window.addEventListener("load", createInterface);
