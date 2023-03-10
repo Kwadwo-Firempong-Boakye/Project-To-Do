@@ -7,16 +7,11 @@ let tasks = [];
 const idGenerator = () => {
 	let idNumber = 100;
 	const getIdNumber = () => idNumber;
-	const increaseIdNumber = () => idNumber++;
+	const increaseIdNumber = () => (idNumber += 5);
 	return {
 		getIdNumber,
 		increaseIdNumber,
 	};
-};
-
-//Function to store data
-const storeData = (obj) => {
-	tasks.push(obj);
 };
 
 //Instance of identity
@@ -36,15 +31,37 @@ const createTaskData = () => {
 	const taskObject = { name, desc, date, priority, project, taskId };
 
 	taskIdentityNumber.increaseIdNumber();
-	storeData(taskObject);
+	storeTaskData(taskObject);
 	pubSub.publish("task-added", taskObject);
-	// console.log(tasks);
 };
 
-const testPubSub = (x) => {
-	console.log(x);
+//Function to store data
+const storeTaskData = (obj) => {
+	tasks.push(obj);
 };
 
-pubSub.subscribe("task-added", testPubSub);
+const removeTaskData = (key) => {
+	for (let i = 0; i < tasks.length; i++) {
+		if (tasks[i]["taskId"] == key) {
+			tasks.splice(i, 1);
+			return;
+		}
+	}
+};
 
-export { createTaskData };
+const modifyTaskData = (index) => {
+	tasks[index]["name"] = document.querySelector("#task-title").value;
+	tasks[index]["desc"] = document.querySelector("#task-desc").value;
+	tasks[index]["date"] = document.querySelector("#task-due").value;
+	tasks[index]["priority"] = document.querySelector(
+		'input[name="task-priority"]:checked'
+	).value;
+	tasks[index]["project"] = document.querySelector("select").value;
+
+	const nameProp = tasks[index]["name"];
+	const idProp = tasks[index]["taskId"];
+
+	pubSub.publish("task-modified", idProp, nameProp);
+};
+
+export { tasks, createTaskData, removeTaskData, modifyTaskData };
