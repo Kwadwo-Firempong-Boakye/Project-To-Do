@@ -1,4 +1,4 @@
-import { createTaskData } from "./create-task-data";
+import { createTaskData, modifyTaskData } from "./create-task-data";
 
 function taskForm() {
 	const projectContainer = document.querySelector("#project-container");
@@ -27,7 +27,6 @@ function taskForm() {
 	const generalOption = document.createElement("option");
 	const submitButton = document.createElement("button");
 	const today = new Date().toISOString().split("T")[0];
-
 
 	projectContainer.append(taskFormContainer, projectContainerOverlay);
 	taskFormContainer.append(taskFormContent);
@@ -170,6 +169,7 @@ function showForm() {
 	const taskFormContent = document.querySelector(".form-content");
 	const detailsArea = document.querySelector(".details-area");
 	const tasksArea = document.querySelector(".tasks-area");
+	const submitButton = document.querySelector(".submit-button");
 
 	detailsArea.classList.add("hide-details-panel");
 	tasksArea.classList.remove("no-pointer-events");
@@ -183,12 +183,49 @@ function showForm() {
 		taskFormContainer.style.transform = "scale(1)";
 		taskFormContent.style.transform = "scale(1)";
 	}, 200);
+
+	submitButton.setAttribute("data-action", "create");
+}
+
+function modifyForm({ name, desc, date, priority, project }, index) {
+	showForm();
+	const _name = document.querySelector("#task-title");
+	const _desc = document.querySelector("#task-desc");
+	const _date = document.querySelector("#task-due");
+	const _priority = document.querySelector(`#task-priority-${priority}`);
+	const _project = document.querySelector("select");
+	const submitButton = document.querySelector(".submit-button");
+
+	_name.value = name;
+	_desc.value = desc;
+	_date.value = date;
+	_priority.checked = true;
+	_project.value = project;
+	submitButton.innerText = "Modify Task";
+
+	submitButton.setAttribute("data-action", "modify");
+	submitButton.setAttribute("data-key", index);
 }
 
 function submitForm(e) {
 	e.preventDefault();
-	createTaskData();
-	resetForm();
+
+	const formAction = e.target
+		.querySelector(".submit-button")
+		.getAttribute("data-action");
+
+	const taskIndex = e.target
+		.querySelector(".submit-button")
+		.getAttribute("data-key");
+
+	if (formAction == "create") {
+		createTaskData();
+		resetForm();
+	} else if (formAction == "modify") {
+		modifyTaskData(taskIndex);
+		resetForm();
+		console.log("aye modify blud");
+	}
 }
 
-export { taskForm, closeForm, showForm };
+export { taskForm, closeForm, showForm, modifyForm };
