@@ -1,14 +1,8 @@
 import back from "./Images/arrow.png";
 
-function renderDetails(
-	taskTitle = "Lorem Ipsum",
-	taskProject = "General",
-	taskDescription = "Qwerty asdf hjk xcvbnm, fghjk dfghjk ertyu rfgbn sdfghjk dfghj.",
-	taskDueDate = new Date(),
-	taskPriority = "low"
-) {
+function renderDetails(obj) {
 	const detailsArea = document.querySelector(".details-area");
-	const tasksArea = document.querySelector(".tasks-area");
+	const detailsInfoContainer = document.createElement("div");
 	const backArrow = document.createElement("img");
 	const detailsTitle = document.createElement("h3");
 	const project = document.createElement("p");
@@ -16,7 +10,8 @@ function renderDetails(
 	const description = document.createElement("p");
 	const dueDate = document.createElement("p");
 
-	detailsArea.append(
+	detailsArea.append(detailsInfoContainer);
+	detailsInfoContainer.append(
 		backArrow,
 		detailsTitle,
 		project,
@@ -25,6 +20,7 @@ function renderDetails(
 		dueDate
 	);
 
+	detailsInfoContainer.classList.add("details-info-container");
 	backArrow.classList.add("back-arrow");
 	detailsTitle.classList.add("details-title");
 	project.classList.add("project");
@@ -33,16 +29,40 @@ function renderDetails(
 	dueDate.classList.add("due-date");
 
 	backArrow.setAttribute("src", back);
-	detailsTitle.innerText = taskTitle;
-	project.innerText = taskProject;
-	description.innerText = taskDescription;
-	dueDate.innerHTML = `<span class="due-text">Due date</span> <br><br> ${taskDueDate}`;
-	priority.innerText = taskPriority;
+	detailsTitle.innerText = obj["name"];
+	project.innerText = obj["project"];
+	description.innerText = obj["desc"];
+	dueDate.innerHTML = `<span class="due-text">Due date</span> <br><br> ${obj["date"]}`;
+	priority.innerText = obj["priority"];
 
-	backArrow.addEventListener("click", () => {
-		detailsArea.classList.add("hide-details-panel");
-		tasksArea.classList.remove("no-pointer-events");
-	});
+	backArrow.addEventListener("click", clearDetails);
 }
 
-export default renderDetails;
+const clearDetails = () => {
+	const detailsInfoContainer = document.querySelector(
+		".details-info-container"
+	);
+	const detailsArea = document.querySelector(".details-area");
+	const tasksArea = document.querySelector(".tasks-area");
+
+	if (detailsInfoContainer) {
+		detailsArea.classList.add("hide-details-panel");
+		tasksArea.classList.remove("no-pointer-events");
+		setTimeout(() => {
+			detailsInfoContainer.remove();
+		}, 250);
+	}
+};
+
+const showDetails = () => {
+	const detailsArea = document.querySelector(".details-area");
+	const tasksArea = document.querySelector(".tasks-area");
+
+	detailsArea.classList.remove("no-display");
+	setTimeout(() => {
+		detailsArea.classList.remove("hide-details-panel");
+		tasksArea.classList.add("no-pointer-events");
+	}, 10);
+};
+
+export { renderDetails, clearDetails, showDetails };
