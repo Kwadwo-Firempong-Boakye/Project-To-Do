@@ -1,7 +1,16 @@
 import pubSub from "./pub-sub";
 
 //Data storage array;
-let tasks = [];
+let tasks = [
+	{
+		name: "Just-Do-It App - Guide",
+		desc: "Insert instruction on how to use the app",
+		date: "15/03/2023",
+		priority: "high",
+		project: "General",
+		taskId: 5000,
+	},
+];
 
 // Function to create task ID
 const idGenerator = () => {
