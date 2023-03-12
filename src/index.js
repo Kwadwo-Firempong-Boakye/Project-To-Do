@@ -5,8 +5,8 @@ import {
 	createHamburger,
 	createSideMenu,
 } from "./create-home";
-import renderDetails from "./create-details-panel.js";
-import { renderTaskHeading, renderTask } from "./create-task-panel";
+import { renderTaskHeading } from "./create-task-panel";
+import pubSub from "./pub-sub";
 
 const createInterface = () => {
 	createHeader();
@@ -14,6 +14,14 @@ const createInterface = () => {
 	createDashboardStructure();
 	createSideMenu();
 	renderTaskHeading();
+	pubSub.publish("task-added", {
+		name: "Just-Do-It App - Guide",
+		desc: "Insert instruction on how to use the app",
+		date: "15/03/2023",
+		priority: "high",
+		project: "General",
+		taskId: 5000,
+	});
 };
 
 window.addEventListener("load", createInterface);
