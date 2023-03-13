@@ -113,7 +113,7 @@ body {
 	width: 350px;
 	height: 100%;
 	border-right: 2px solid var(--divider-color);
-	background: #ffffff;
+	background-color: #fff;
 	display: -webkit-box;
 	display: -ms-flexbox;
 	display: flex;
@@ -159,8 +159,6 @@ body {
 	background-color: rgba(0, 61, 140, 0.6);
 	-webkit-backdrop-filter: blur(5px);
 	backdrop-filter: blur(5px);
-	/* background: -o-linear-gradient(45deg, var(--logo-blue), #043584); */
-	/* background: linear-gradient(45deg, var(--logo-blue), #043584); */
 	-webkit-transition: all 0.2s ease-in-out;
 	-o-transition: all 0.2s ease-in-out;
 	transition: all 0.2s ease-in-out;
@@ -226,8 +224,6 @@ body {
 }
 
 .menu-item {
-	margin: 0;
-
 	font-size: 1.2rem;
 	margin: 0;
 	padding: 0;
@@ -757,6 +753,65 @@ body {
 	transition: all 0.3s ease-out;
 }
 
+/*Project Form*/
+
+.project-area {
+	margin-top: 3rem;
+	height: auto;
+	padding: 0;
+}
+
+.project-button {
+	border: none;
+	border-radius: 5px;
+	padding: 0.5rem;
+	margin: 3rem 1.5rem 1rem 1.5rem;
+	width: 10rem;
+	background: linear-gradient(45deg, #043584, #0f58cd);
+	color: #fff;
+	font-size: 1rem;
+	font-family: Varela Round;
+	transition: 0.3s all ease-in-out;
+}
+
+.project-form-content {
+	padding-top: 2.5rem;
+	transition: all 0.3s ease-in-out;
+	transform: scale(0);
+}
+
+.project-form-content input[type="text"] {
+	width: 100%;
+	margin: 0.5rem 0;
+	padding: 0.5rem;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	border: none;
+	border-radius: 0.5rem;
+	height: 2rem;
+	font-family: Varela Round;
+}
+
+.project-heading {
+	padding: 1rem 1.5rem;
+	margin: 0;
+	font-size: 1.2rem;
+	font-weight: bold;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	border-top: 1px solid var(--divider-color);
+	border-bottom: 1px solid var(--divider-color);
+	/* background-color: #eff4fa; */
+}
+
+.project-div {
+	padding: 1rem 1rem 1rem 3rem;
+	font-size: 1.1rem;
+	border: 1px solid var(--divider-color);
+	cursor: pointer;
+	transition: all 0.2s ease-out;
+}
+
 /* .tasks-overlay {
 	position: absolute;
 	top: 0;
@@ -816,6 +871,11 @@ body {
 		transform: translateX(10px);
 	}
 
+	.project-div:hover {
+		color: var(--white);
+		background: linear-gradient(45deg, #043584, #0f58cd);
+	}
+
 	.hamburger:hover {
 		border-radius: 5px;
 		-webkit-transform: scale(1.25) translateX(5px);
@@ -859,6 +919,10 @@ body {
 	.details-edit-button:focus {
 		background: #871b1b;
 		color: #fff;
+	}
+
+	.project-button:hover {
+		width: 12rem;
 	}
 }
 
