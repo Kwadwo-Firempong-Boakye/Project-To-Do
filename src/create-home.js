@@ -1,7 +1,7 @@
 import logoBlue from "./Images/Taskie-logo-deep-blue.png";
 import githubSign from "./Images/github-sign.png";
 import burgerMenu from "./Images/burger-menu.svg";
-import { showForm } from "./create-task-form";
+import { showForm, closeForm, submitForm } from "./create-task-form";
 import { clearDetails } from "./create-details-panel";
 
 function createHamburger() {
@@ -111,7 +111,7 @@ function createDashboardStructure() {
 function createSideMenu() {
 	const menuArea = document.querySelector(".menu-area");
 	const menuItems = [
-		"All Tasks",
+		"All Tasks (General)",
 		"Past Due",
 		"Due today",
 		"Due this week",
@@ -149,9 +149,89 @@ function createSideMenu() {
 	});
 }
 
+const createProjectMenu = () => {
+	const menuArea = document.querySelector(".menu-area");
+	const projectArea = document.createElement("div");
+	const projectHeading = document.createElement("p");
+	const addProjectButton = document.createElement("button");
+
+	menuArea.append(projectArea, addProjectButton);
+	projectArea.append(projectHeading);
+
+	addProjectButton.innerText = "+ Add New Project";
+	projectHeading.innerText = "Projects";
+
+	projectArea.classList.add("project-area");
+	projectHeading.classList.add("project-heading");
+	addProjectButton.classList.add("project-button");
+
+	addProjectButton.addEventListener("click", openProjectForm);
+};
+
+const openProjectForm = () => {
+	const projectContainer = document.querySelector("#project-container");
+	const projectContainerOverlay = document.createElement("div");
+	const projectFormContainer = document.createElement("div");
+	const projectFormContent = document.createElement("form");
+	const projectTitleLabel = document.createElement("label");
+	const projectTitleInput = document.createElement("input");
+	const projectSubmitButton = document.createElement("button");
+	const detailsArea = document.querySelector(".details-area");
+	const tasksArea = document.querySelector(".tasks-area");
+
+	projectContainer.append(projectContainerOverlay, projectFormContainer);
+	projectFormContainer.append(projectFormContent);
+	projectFormContent.append(
+		projectTitleLabel,
+		projectTitleInput,
+		projectSubmitButton
+	);
+
+	projectContainerOverlay.classList.add("container-overlay");
+	projectFormContainer.classList.add("form-container");
+	projectFormContent.classList.add("form-content", "project-form-content");
+	projectSubmitButton.classList.add("submit-button", "submit-project-button");
+	detailsArea.classList.add("hide-details-panel");
+	tasksArea.classList.remove("no-pointer-events");
+
+	projectTitleLabel.innerText = "Project Name";
+	projectSubmitButton.innerText = "Create Project";
+
+	projectTitleInput.setAttribute("placeholder", "Enter project name");
+	projectTitleInput.setAttribute("type", "text");
+	projectTitleInput.setAttribute("id", "project-title");
+	projectTitleInput.required = true;
+
+	projectContainerOverlay.style.transform = "scale(0)";
+	projectFormContainer.style.transform = "scale(0)";
+	projectFormContent.style.transform = "scale(0)";
+
+	setTimeout(() => {
+		projectContainerOverlay.style.transform = "scale(1)";
+		projectFormContainer.style.transform = "scale(1)";
+		projectFormContent.style.transform = "scale(1)";
+	}, 200);
+
+	projectSubmitButton.setAttribute("data-action", "add-project");
+
+	projectFormContainer.addEventListener("click", closeForm);
+	projectFormContent.addEventListener("submit", submitForm);
+};
+
+const addProject = () => {
+	const projectName = document.querySelector("#project-title").value;
+	const projectArea = document.querySelector(".project-area");
+	const projectDiv = document.createElement("div");
+	projectArea.append(projectDiv);
+	projectDiv.classList.add("project-div");
+	projectDiv.innerText = "# " + projectName;
+};
+
 export {
 	createHeader,
 	createDashboardStructure,
 	createHamburger,
 	createSideMenu,
+	createProjectMenu,
+	addProject
 };
