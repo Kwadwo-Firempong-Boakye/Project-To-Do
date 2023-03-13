@@ -153,6 +153,7 @@ body {
 
 .details-area {
 	min-width: 400px;
+	max-width: 450px;
 	height: 100%;
 	border-left: 0.25rem solid white;
 	background-color: rgba(0, 61, 140, 0.6);
@@ -465,7 +466,7 @@ body {
 	background-color: #b2d5fc;
 	margin-top: 4.3rem;
 	border: none;
-	margin-left: 1rem;
+	margin-left: 1.5rem;
 	margin-right: 1rem;
 }
 
@@ -474,19 +475,24 @@ body {
 	background-color: #ffffff;
 	border: none;
 	margin-left: 1.5rem;
-	margin-right: 1.5rem;
+	margin-right: 1rem;
 	margin-bottom: 2.25rem;
 }
 
 .details-title {
-	padding: 0.5rem 0;
+	padding: 1.5rem;
 	font-size: 1.75rem;
-	text-transform: uppercase;
+	/* text-transform: uppercase; */
 	text-align: left;
-	color: white;
+	color: #043584;
 	margin-right: 1rem;
-	margin-left: 2rem;
+	margin-left: 1.5rem;
+	margin-top: 2.25rem;
+	margin-bottom: 2.25rem;
 	max-width: 90%;
+	background: #fff;
+	border-radius: 5px;
+	font-weight: bold;
 }
 
 .project,
@@ -521,7 +527,6 @@ body {
 	max-width: 90%;
 	margin-left: 1.5rem;
 	margin-right: 1rem;
-
 	color: #043584;
 	background: #fff;
 	padding: 0.65rem 1rem;
@@ -540,7 +545,6 @@ body {
 
 .due-text {
 	display: inline-block;
-
 	font-size: 0.85rem;
 	font-weight: bold;
 	text-transform: uppercase;
@@ -550,6 +554,31 @@ body {
 	line-height: normal;
 	padding: 0.2rem 0.8rem;
 	border-radius: 5px;
+}
+
+.details-edit-button {
+	position: absolute;
+	left: 0;
+	top: 1.2rem;
+	color: #043584;
+	font-family: Varela Round;
+	font-weight: bold;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	margin-left: 1.5rem;
+	padding: 0.5rem 1rem;
+	border-radius: 5px;
+	border: none;
+	background-color: #ffffff;
+	cursor: pointer;
+}
+
+[contenteditable]:focus {
+	outline: 0px solid transparent;
+}
+
+.editable {
+	border: 1px solid red;
 }
 
 /*FORM AREA*/
@@ -602,7 +631,6 @@ body {
 	flex-direction: column;
 	padding: 0.5rem 1rem 2rem 1rem;
 	gap: 1rem;
-
 	border-radius: 0.75rem;
 	width: max(25vw, 300px);
 	-webkit-transition: all 0.3s ease-in-out;
@@ -653,6 +681,7 @@ body {
 	border: none;
 	border-radius: 0.5rem;
 	height: 2rem;
+	font-family: Varela Round;
 }
 
 .form-content textarea {
@@ -665,6 +694,7 @@ body {
 	border: none;
 	border-radius: 0.5rem;
 	resize: none;
+	font-family: Varela Round;
 }
 
 .form-content input[type="date"] {
@@ -676,6 +706,7 @@ body {
 	border: none;
 	border-radius: 0.5rem;
 	height: 2rem;
+	font-family: Varela Round;
 }
 
 .form-content fieldset {
@@ -705,10 +736,12 @@ body {
 	border-radius: 0.5rem;
 	margin: 0.5rem 0;
 	padding: 0.5rem;
+	font-family: Varela Round;
 }
 
 .form-content option {
 	font-size: 1rem;
+	font-family: Varela Round;
 }
 
 .submit-button {
@@ -716,16 +749,12 @@ body {
 	background: #45caff;
 	border-radius: 0.5rem;
 	border: none;
-
+	font-family: Varela Round;
 	font-size: 1.2rem;
 	margin-top: 1rem;
 	-webkit-transition: all 0.3s ease-out;
 	-o-transition: all 0.3s ease-out;
 	transition: all 0.3s ease-out;
-}
-
-[contenteditable] {
-	/* outline: 1px solid transparent; */
 }
 
 /* .tasks-overlay {
@@ -821,6 +850,16 @@ body {
 	.close-button:active {
 		background: #7c190a;
 	}
+
+	.details-edit-button:hover {
+		background: #bc3939;
+		color: #fff;
+	}
+
+	.details-edit-button:focus {
+		background: #871b1b;
+		color: #fff;
+	}
 }
 
 @media only screen and (max-width: 768px) {
@@ -848,7 +887,7 @@ body {
 	}
 
 	.details-area {
-		max-width: 255px;
+		max-width: 265px;
 		min-width: 50px;
 	}
 
