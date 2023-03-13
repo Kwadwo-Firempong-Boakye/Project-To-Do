@@ -1,4 +1,5 @@
 import { createTaskData, modifyTaskData } from "./create-task-data";
+import { addProject } from "./create-home";
 
 function taskForm() {
 	const projectContainer = document.querySelector("#project-container");
@@ -130,6 +131,7 @@ function closeForm(e) {
 	const taskFormContainer = document.querySelector(".form-container");
 	const taskFormContent = document.querySelector(".form-content");
 	const closeButton = document.querySelector(".close-button");
+	const submitProject = document.querySelector(".submit-project-button");
 
 	if (e.target == taskFormContainer || e.target == closeButton) {
 		projectContainerOverlay.style.transform = "scale(0)";
@@ -224,8 +226,10 @@ function submitForm(e) {
 	} else if (formAction == "modify") {
 		modifyTaskData(taskIndex);
 		resetForm();
-		console.log("aye modify blud");
+	} else if (formAction == "add-project") {
+		addProject();
+		resetForm();
 	}
 }
 
-export { taskForm, closeForm, showForm, modifyForm };
+export { taskForm, closeForm, showForm, modifyForm, submitForm };
