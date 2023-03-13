@@ -4,6 +4,7 @@ import {
 	createDashboardStructure,
 	createHamburger,
 	createSideMenu,
+	createProjectMenu,
 } from "./create-home";
 import { renderTaskHeading } from "./create-task-panel";
 import pubSub from "./pub-sub";
@@ -13,6 +14,7 @@ const createInterface = () => {
 	createHamburger();
 	createDashboardStructure();
 	createSideMenu();
+	createProjectMenu();
 	renderTaskHeading();
 	pubSub.publish("task-added", {
 		name: "Just-Do-It App - Guide",
