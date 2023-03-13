@@ -57,11 +57,9 @@ function renderModifiedTask(idProp, nameProp) {
 
 const textContainerEventController = (e) => {
 	if (e.target.classList.value == "modify-button") {
-		console.log("aye modify bro");
 		modifyTask(e);
 		return;
 	} else if (e.target.classList.value == "delete-button") {
-		console.log("yah delete bro");
 		deleteTask(e);
 		console.log(tasks);
 		return;
@@ -75,7 +73,7 @@ const selectTask = (e) => {
 	const objKey = e.target.getAttribute("data-key");
 	for (let i = 0; i < tasks.length; i++) {
 		if (tasks[i]["taskId"] == objKey) {
-			renderDetails(tasks[i]);
+			renderDetails(tasks[i], i);
 			return;
 		}
 	}
