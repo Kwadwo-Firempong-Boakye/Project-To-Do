@@ -1,10 +1,12 @@
 import back from "./Images/arrow.png";
+import { modifyForm } from "./create-task-form";
 
-function renderDetails(obj) {
+function renderDetails(obj, taskIndex) {
 	const detailsArea = document.querySelector(".details-area");
 	const divider = document.createElement("hr");
 	const detailsInfoContainer = document.createElement("div");
 	const backArrow = document.createElement("img");
+	const editButton = document.createElement("button");
 	const detailsTitle = document.createElement("h3");
 	const divider2 = document.createElement("hr");
 	const project = document.createElement("p");
@@ -16,6 +18,7 @@ function renderDetails(obj) {
 	detailsArea.append(divider, detailsInfoContainer);
 	detailsInfoContainer.append(
 		backArrow,
+		editButton,
 		detailsTitle,
 		divider2,
 		project,
@@ -28,6 +31,7 @@ function renderDetails(obj) {
 	detailsInfoContainer.classList.add("details-info-container");
 	divider.classList.add("details-divider");
 	backArrow.classList.add("back-arrow");
+	editButton.classList.add("details-edit-button");
 	detailsTitle.classList.add("details-title");
 	divider2.classList.add("details-divider2");
 	project.classList.add("project");
@@ -37,8 +41,8 @@ function renderDetails(obj) {
 	description.classList.add("details-description");
 
 	backArrow.setAttribute("src", back);
-	detailsTitle.setAttribute("contentEditable", true);
 
+	editButton.innerText = "Edit Details";
 	detailsTitle.innerText = obj["name"];
 	project.innerHTML = `<span class="project-priority-text">Project&nbsp&nbsp&nbsp|&nbsp&nbsp</span> ${obj["project"]}`;
 	priority.innerHTML = `<span class="project-priority-text">Priority&nbsp&nbsp&nbsp|&nbsp&nbsp</span> ${obj["priority"]}`;
@@ -46,6 +50,11 @@ function renderDetails(obj) {
 	description.innerHTML = `<span class="project-priority-text desc-title">Description</span><br>${obj["desc"]}`;
 
 	backArrow.addEventListener("click", clearDetails);
+	editButton.addEventListener("click", () => {
+		clearDetails();
+		modifyForm(obj, taskIndex);
+	});
+
 }
 
 const clearDetails = () => {
@@ -75,6 +84,22 @@ const showDetails = () => {
 		detailsArea.classList.remove("hide-details-panel");
 		tasksArea.classList.add("no-pointer-events");
 	}, 10);
+};
+
+const editDetails = () => {
+	const title = document.querySelector(".details-title");
+	const description = document.querySelector(".details-description");
+	const project = document.querySelector(".project");
+	const priority = document.querySelector(".priority");
+	const due = document.querySelector(".due-date");
+	const labels = document.querySelector(".project-priority-text");
+
+	title.setAttribute("contentEditable", "true");
+	description.setAttribute("contentEditable", "true");
+	project.setAttribute("contentEditable", "true");
+	priority.setAttribute("contentEditable", "true");
+	due.setAttribute("contentEditable", "true");
+	labels.setAttribute("contentEditable", "false");
 };
 
 export { renderDetails, clearDetails, showDetails };
