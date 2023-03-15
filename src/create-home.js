@@ -3,6 +3,12 @@ import githubSign from "./Images/github-sign.png";
 import burgerMenu from "./Images/burger-menu.svg";
 import { showForm, closeForm, submitForm } from "./create-task-form";
 import { clearDetails } from "./create-details-panel";
+import pubSub from "./pub-sub";
+import {
+	filterTasksByProject,
+	renderTaskHeading,
+	showAllTasks,
+} from "./create-task-panel";
 
 function createHamburger() {
 	const projectContainer = document.querySelector("#project-container");
@@ -111,7 +117,7 @@ function createDashboardStructure() {
 function createSideMenu() {
 	const menuArea = document.querySelector(".menu-area");
 	const menuItems = [
-		"All Tasks (General)",
+		"All Tasks",
 		"Past Due",
 		"Due today",
 		"Due this week",
@@ -120,7 +126,7 @@ function createSideMenu() {
 	const detailsArea = document.querySelector(".details-area");
 	const tasksArea = document.querySelector(".tasks-area");
 
-	menuItems.forEach((item) => {
+	menuItems.forEach((item, i) => {
 		let menuItemContainer = document.createElement("div");
 		let menuItemImage = document.createElementNS(
 			"http://www.w3.org/2000/svg",
@@ -136,7 +142,15 @@ function createSideMenu() {
 		menuItemContainer.classList.add("menu-item-container");
 		menuItem.classList.add("menu-item");
 
+		menuItemContainer.setAttribute("data-side-menu", item);
+
 		menuArea.append(menuItemContainer);
+
+		if (i == 0) {
+			menuItemContainer.addEventListener("click", showAllTasks);
+		}
+		menuItemContainer.addEventListener("click", changeHeading);
+
 		menuItemContainer.append(menuItemImage, menuItem);
 	});
 
@@ -154,18 +168,24 @@ const createProjectMenu = () => {
 	const projectArea = document.createElement("div");
 	const projectHeading = document.createElement("p");
 	const addProjectButton = document.createElement("button");
+	const projectDiv = document.createElement("div");
 
 	menuArea.append(projectArea, addProjectButton);
-	projectArea.append(projectHeading);
+	projectArea.append(projectHeading, projectDiv);
 
 	addProjectButton.innerText = "+ Add New Project";
 	projectHeading.innerText = "Projects";
+	projectDiv.innerText = "# General";
+	projectDiv.setAttribute("data-project", "General");
 
 	projectArea.classList.add("project-area");
 	projectHeading.classList.add("project-heading");
+	projectDiv.classList.add("project-div");
 	addProjectButton.classList.add("project-button");
 
 	addProjectButton.addEventListener("click", openProjectForm);
+	projectDiv.addEventListener("click", changeHeading);
+	projectDiv.addEventListener("click", filterTasksByProject);
 };
 
 const openProjectForm = () => {
@@ -224,7 +244,21 @@ const addProject = () => {
 	const projectDiv = document.createElement("div");
 	projectArea.append(projectDiv);
 	projectDiv.classList.add("project-div");
+	projectDiv.setAttribute("data-project", projectName);
+	projectDiv.addEventListener("click", changeHeading);
+	projectDiv.addEventListener("click", filterTasksByProject);
+
 	projectDiv.innerText = "# " + projectName;
+
+	pubSub.publish("project-ui-added", projectName);
+};
+
+const changeHeading = (e) => {
+	let title =
+		e.target.getAttribute("data-project") ||
+		e.target.getAttribute("data-side-menu") ||
+		e.target.innerText;
+	renderTaskHeading(title);
 };
 
 export {
@@ -233,5 +267,6 @@ export {
 	createHamburger,
 	createSideMenu,
 	createProjectMenu,
-	addProject
+	addProject,
+	changeHeading,
 };
