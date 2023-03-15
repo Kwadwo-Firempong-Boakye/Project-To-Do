@@ -5,6 +5,7 @@ import {
 	createHamburger,
 	createSideMenu,
 	createProjectMenu,
+	addProject
 } from "./create-home";
 import { renderTaskHeading } from "./create-task-panel";
 import pubSub from "./pub-sub";
@@ -16,14 +17,14 @@ const createInterface = () => {
 	createSideMenu();
 	createProjectMenu();
 	renderTaskHeading();
-	pubSub.publish("task-added", {
-		name: "Just-Do-It App - Guide",
-		desc: "Insert instruction on how to use the app",
-		date: "15/03/2023",
-		priority: "high",
-		project: "General",
-		taskId: 5000,
-	});
+	// pubSub.publish("task-added", {
+	// 	name: "Just-Do-It App - Guide",
+	// 	desc: "Insert instruction on how to use the app",
+	// 	date: "15/03/2023",
+	// 	priority: "high",
+	// 	project: "General",
+	// 	taskId: 5000,
+	// });
 };
 
 window.addEventListener("load", createInterface);
