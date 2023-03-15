@@ -1,5 +1,5 @@
 import pubSub from "./pub-sub";
-import { tasks, removeTaskData } from "./create-task-data";
+import { tasks, removeTaskData, dateCategorizer } from "./create-task-data";
 import { renderDetails, showDetails } from "./create-details-panel";
 import { modifyForm } from "./create-task-form";
 
@@ -140,6 +140,7 @@ const showAllTasks = () => {
 };
 
 pubSub.subscribe("task-added", renderTask);
+pubSub.subscribe("task-added", dateCategorizer.assignDateStatus);
 pubSub.subscribe("task-ui-removed", removeTaskData);
 pubSub.subscribe("task-modified", renderModifiedTask);
 
