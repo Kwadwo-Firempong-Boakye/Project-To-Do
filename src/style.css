@@ -195,7 +195,7 @@ body {
 }
 
 .no-display {
-	display: none;
+	display: none !important;
 }
 
 .no-pointer-events {
@@ -270,7 +270,7 @@ body {
 	-o-transition: all 0.3s ease-in-out;
 	transition: all 0.3s ease-in-out;
 	-webkit-animation: slide-in 1.8s ease-out forwards;
-	animation: slide-in 1.8s ease-out forwards;
+	animation: slide-in 1.2s ease-out forwards;
 }
 
 .animate-out {
