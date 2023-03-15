@@ -1,4 +1,4 @@
-import { createTaskData, modifyTaskData } from "./create-task-data";
+import { createTaskData, modifyTaskData, projectsUi } from "./create-task-data";
 import { addProject } from "./create-home";
 
 function taskForm() {
@@ -25,7 +25,7 @@ function taskForm() {
 	const taskPriorityInputHigh = document.createElement("input");
 	const taskProjectLabel = document.createElement("label");
 	const taskProjectSelect = document.createElement("select");
-	const generalOption = document.createElement("option");
+	// const generalOption = document.createElement("option");
 	const submitButton = document.createElement("button");
 	const today = new Date().toISOString().split("T")[0];
 
@@ -53,7 +53,7 @@ function taskForm() {
 	taskPriorityLabelHigh.innerText = "High";
 	priorityLegend.innerText = "Select Priority";
 	taskProjectLabel.innerText = "Choose a project";
-	generalOption.innerText = "General";
+	// generalOption.innerText = "General";
 	submitButton.innerText = "Submit Task";
 
 	taskTitleLabel.append(taskTitleInput);
@@ -68,7 +68,7 @@ function taskForm() {
 	taskPriorityLabelLow.append(taskPriorityInputLow);
 	taskPriorityLabelMedium.append(taskPriorityInputMedium);
 	taskPriorityLabelHigh.append(taskPriorityInputHigh);
-	taskProjectSelect.append(generalOption);
+	// taskProjectSelect.append(generalOption);
 
 	projectContainerOverlay.classList.add("container-overlay");
 	taskFormContainer.classList.add("form-container");
@@ -109,10 +109,11 @@ function taskForm() {
 	taskPriorityInputMedium.setAttribute("type", "radio");
 	taskPriorityInputHigh.setAttribute("type", "radio");
 	submitButton.setAttribute("type", "submit");
+	close.setAttribute("type", "button");
 	taskPriorityInputLow.setAttribute("value", "low");
 	taskPriorityInputMedium.setAttribute("value", "medium");
 	taskPriorityInputHigh.setAttribute("value", "high");
-	generalOption.setAttribute("value", "General");
+	taskDueInput.value = today;
 
 	taskDueInput.setAttribute("min", today);
 
@@ -121,12 +122,27 @@ function taskForm() {
 	taskProjectSelect.required = true;
 	taskPriorityInputLow.required = true;
 
+	createSelectOptions();
+
 	close.addEventListener("click", closeForm);
 	taskFormContainer.addEventListener("click", closeForm);
 	taskFormContent.addEventListener("submit", submitForm);
 }
 
+function createSelectOptions() {
+	const select = document.querySelector("select");
+	const options = projectsUi;
+	options.forEach((item) => {
+		let opt = document.createElement("option");
+		opt.innerText = item;
+		opt.setAttribute("value", item);
+		select.append(opt);
+	});
+}
+
 function closeForm(e) {
+	e.stopImmediatePropagation();
+
 	const projectContainerOverlay = document.querySelector(".container-overlay");
 	const taskFormContainer = document.querySelector(".form-container");
 	const taskFormContent = document.querySelector(".form-content");
@@ -144,6 +160,8 @@ function closeForm(e) {
 			taskFormContent.remove();
 		}, 300);
 	}
+
+	// console.log("form closed triggered");
 }
 
 function resetForm() {
@@ -210,6 +228,7 @@ function modifyForm({ name, desc, date, priority, project }, index) {
 }
 
 function submitForm(e) {
+	console.log("Submit form process initiated");
 	e.preventDefault();
 
 	const formAction = e.target
