@@ -30,7 +30,7 @@ const createTaskData = () => {
 //Function to store data
 const storeTaskData = (obj) => {
 	tasks.push(obj);
-	console.log(tasks);
+	// console.log(tasks);
 };
 
 //Function to remove data
@@ -88,7 +88,7 @@ const cacheIndexes = ({ project }) => {
 	} else {
 		projectIndexes[project] = [position];
 	}
-	console.log(projectIndexes);
+	// console.log(projectIndexes);
 };
 
 //Function to correct indexes of created tasks by projects after task deletion
@@ -109,7 +109,7 @@ const adjustCachedIndexes = (num) => {
 			return item > num ? item - 1 : item;
 		});
 	});
-	console.log(projectIndexes);
+	// console.log(projectIndexes);
 };
 
 //Data storage for lists of projects
@@ -119,10 +119,109 @@ const storeProjectsUi = (name) => {
 	projectsUi.push(name);
 };
 
+const categorizeAndFilter = () => {
+	const dueToday = [];
+	const dueThisWeek = [];
+	const pastDue = [];
+	const completed = [];
+
+	const accessDateStorageController = (key) => {
+		let focus;
+		switch (key) {
+			case "due-today":
+				focus = dueToday;
+				break;
+			case "due-this-week":
+				focus = dueThisWeek;
+				break;
+			case "pastDue":
+				focus = pastDue;
+				break;
+			case "completed":
+				focus = completed;
+				break;
+			default:
+				console.log("input error");
+				break;
+		}
+		return focus;
+	};
+
+	const checkDateStatus = () => {
+		let today = new Date().toISOString.split("T")[0];
+		let currentWeekDays = Array.from(Array(7).keys()).map((idx) => {
+			const d = new Date();
+			d.setDate(d.getDate() - d.getDay() + idx);
+			return d.toISOString().split("T")[0];
+		});
+
+		tasks.forEach((task) => {
+			let textContainer = document.querySelector(
+				`[data-key="${task["taskId"]}"]`
+			);
+			let taskDate = task["date"];
+			if (taskDate == today) {
+				dueToday.push(task);
+				dueThisWeek.push(task);
+				textContainer.parentElement.setAttribute("data-category", "due-today");
+				textContainer.parentElement.setAttribute("this-week", "true");
+			} else if (taskDate < today) {
+				pastDue.push(task);
+				textContainer.parentElement.setAttribute("data-category", "past-due");
+				if (currentWeekDays.includes(taskDate)) {
+					textContainer.parentElement.setAttribute("this-week", "true");
+					dueThisWeek.push(task);
+				} else {
+					textContainer.parentElement.setAttribute("this-week", "false");
+				}
+			}
+		});
+	};
+
+	const assignDateStatus = (obj) => {
+		let today = new Date().toISOString().split("T")[0];
+		let currentWeekDays = Array.from(Array(7).keys()).map((idx) => {
+			const d = new Date();
+			d.setDate(d.getDate() - d.getDay() + idx);
+			return d.toISOString().split("T")[0];
+		});
+		let taskDate = obj["date"];
+		let taskId = obj["taskId"];
+		let textContainer = document.querySelector(`[data-key="${taskId}"]`);
+
+		if (taskDate == today) {
+			dueToday.push(obj);
+			dueThisWeek.push(obj);
+			textContainer.parentElement.setAttribute("data-category", "due-today");
+			textContainer.parentElement.setAttribute("this-week", "true");
+		} else if (currentWeekDays.includes(taskDate)) {
+			dueThisWeek.push(obj);
+			textContainer.parentElement.setAttribute("this-week", "true");
+		} else {
+			textContainer.parentElement.setAttribute("this-week", "false");
+		}
+	};
+
+	return {
+		checkDateStatus,
+		assignDateStatus,
+		accessDateStorageController,
+	};
+};
+
+const dateCategorizer = categorizeAndFilter();
+
 pubSub.subscribe("task-added", storeTaskData);
 pubSub.subscribe("task-added", cacheIndexes);
 pubSub.subscribe("task-added", taskIdentityNumber.increaseIdNumber);
 pubSub.subscribe("task-deleted", removeDeletedCacheIndex);
 pubSub.subscribe("project-ui-added", storeProjectsUi);
 
-export { tasks, createTaskData, removeTaskData, modifyTaskData, projectsUi };
+export {
+	tasks,
+	createTaskData,
+	removeTaskData,
+	modifyTaskData,
+	projectsUi,
+	dateCategorizer,
+};
