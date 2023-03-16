@@ -52,6 +52,7 @@ function renderTask(obj) {
 	taskDelete.innerText = "Delete";
 
 	textContainer.addEventListener("click", textContainerEventController);
+	checkContainer.addEventListener("click", isChecked);
 }
 
 function renderModifiedTask(idProp, nameProp) {
@@ -124,7 +125,9 @@ const filterTasksByProject = (e) => {
 	});
 
 	[...eligible].forEach((item) => {
-		item.classList.remove("no-display");
+		if (!item.getAttribute("complete")) {
+			item.classList.remove("no-display");
+		}
 	});
 };
 
@@ -150,7 +153,9 @@ const filterTasksByDate = (e) => {
 	});
 
 	[...eligible].forEach((item) => {
-		item.classList.remove("no-display");
+		if (!item.getAttribute("complete")) {
+			item.classList.remove("no-display");
+		}
 	});
 };
 
@@ -159,9 +164,52 @@ const showAllTasks = () => {
 	const allTasks = tasksArea.querySelectorAll(".task-container");
 	const hTwo = tasksArea.querySelector("h2");
 	[...allTasks].forEach((item) => {
-		if (item != hTwo) {
+		if (item != hTwo && !item.getAttribute("complete")) {
 			item.classList.remove("no-display");
+		} else if (item.getAttribute("complete")) {
+			item.classList.add("no-display");
 		}
+	});
+};
+
+const isChecked = (e) => {
+	const taskContainer = e.currentTarget.parentElement;
+	const dataKey = taskContainer
+		.querySelector(".text-container")
+		.getAttribute("data-key");
+	// console.log(e.target);
+	if (e.target.checked) {
+		taskContainer.setAttribute("complete", "true");
+		taskContainer.style.background = "#8ecc54";
+		taskContainer.style.pointerEvents = "none";
+		setTimeout(() => {
+			taskContainer.classList.add("checked-animate-out");
+		}, 1000);
+		setTimeout(() => {
+			taskContainer.classList.add("no-display");
+		}, 2000);
+		pubSub.publish("task-ui-removed", dataKey);
+	}
+	// else {
+	// 	taskContainer.removeAttribute("complete");
+	// 	taskContainer.style.background = "#e3f0ff";
+	// 	taskContainer.classList.add("no-display");
+	// }
+};
+
+const showCompleted = () => {
+	const tasksArea = document.querySelector(".tasks-area");
+	const allTasks = tasksArea.querySelectorAll(".task-container");
+	const eligible = tasksArea.querySelectorAll('[complete="true"]');
+	const hTwo = tasksArea.querySelector("h2");
+	[...allTasks].forEach((item) => {
+		if (item != hTwo) {
+			item.classList.add("no-display");
+		}
+	});
+	[...eligible].forEach((item) => {
+		item.classList.remove("no-display");
+		item.classList.remove("checked-animate-out");
 	});
 };
 
@@ -176,4 +224,5 @@ export {
 	filterTasksByProject,
 	showAllTasks,
 	filterTasksByDate,
+	showCompleted,
 };
