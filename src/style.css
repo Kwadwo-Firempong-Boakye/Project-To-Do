@@ -773,16 +773,23 @@ body {
 	padding: 0.5rem;
 	margin: 3rem 1.5rem 1rem 1.5rem;
 	width: 10rem;
+	background: -o-linear-gradient(45deg, #043584, #0f58cd);
 	background: linear-gradient(45deg, #043584, #0f58cd);
 	color: #fff;
 	font-size: 1rem;
 	font-family: Varela Round;
+	-webkit-transition: 0.3s all ease-in-out;
+	-o-transition: 0.3s all ease-in-out;
 	transition: 0.3s all ease-in-out;
 }
 
 .project-form-content {
 	padding-top: 2.5rem;
+	-webkit-transition: all 0.3s ease-in-out;
+	-o-transition: all 0.3s ease-in-out;
 	transition: all 0.3s ease-in-out;
+	-webkit-transform: scale(0);
+	-ms-transform: scale(0);
 	transform: scale(0);
 }
 
@@ -815,6 +822,8 @@ body {
 	font-size: 1.1rem;
 	border: 1px solid var(--divider-color);
 	cursor: pointer;
+	-webkit-transition: all 0.2s ease-out;
+	-o-transition: all 0.2s ease-out;
 	transition: all 0.2s ease-out;
 }
 
@@ -880,6 +889,7 @@ body {
 
 	.project-div:hover {
 		color: var(--white);
+		background: -o-linear-gradient(45deg, #043584, #0f58cd);
 		background: linear-gradient(45deg, #043584, #0f58cd);
 	}
 
