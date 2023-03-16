@@ -9,6 +9,7 @@ import {
 	renderTaskHeading,
 	showAllTasks,
 	filterTasksByDate,
+	showCompleted,
 } from "./create-task-panel";
 
 function createHamburger() {
@@ -151,6 +152,8 @@ function createSideMenu() {
 			menuItemContainer.addEventListener("click", showAllTasks);
 		} else if (i > 0 && i < 4) {
 			menuItemContainer.addEventListener("click", filterTasksByDate);
+		} else if (i == 4) {
+			menuItemContainer.addEventListener("click", showCompleted);
 		}
 
 		menuItemContainer.addEventListener("click", changeHeading);
