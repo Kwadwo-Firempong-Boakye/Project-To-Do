@@ -148,7 +148,7 @@ const categorizeAndFilter = () => {
 	};
 
 	const checkDateStatus = () => {
-		let today = new Date().toISOString.split("T")[0];
+		let today = new Date().toISOString().split("T")[0];
 		let currentWeekDays = Array.from(Array(7).keys()).map((idx) => {
 			const d = new Date();
 			d.setDate(d.getDate() - d.getDay() + idx);
