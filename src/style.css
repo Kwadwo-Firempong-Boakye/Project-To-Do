@@ -278,6 +278,11 @@ body {
 	animation: slide-out 1s ease-in-out forwards;
 }
 
+.checked-animate-out {
+	-webkit-animation: slide-out 1.5s ease-in-out forwards;
+	animation: slide-out 1.5s ease-in-out forwards;
+}
+
 @-webkit-keyframes slide-in {
 	0% {
 		background-color: #2a85df;
@@ -416,6 +421,7 @@ body {
 	width: 1.75rem;
 	background-color: var(--white);
 	border-radius: 50%;
+	/* pointer-events: none; */
 }
 
 .task-container input:checked ~ span {
@@ -848,7 +854,8 @@ body {
 	}
 
 	.header-button:hover {
-		padding: 0.55rem 3rem 0.55rem 2.5rem;
+		padding-right: 3rem;
+		padding-left: 2.5rem;
 	}
 
 	.header-menu img:hover {
