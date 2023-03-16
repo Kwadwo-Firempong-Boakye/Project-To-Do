@@ -3,7 +3,7 @@ import { tasks, removeTaskData, dateCategorizer } from "./create-task-data";
 import { renderDetails, showDetails } from "./create-details-panel";
 import { modifyForm } from "./create-task-form";
 
-function renderTaskHeading(data = "All Tasks") {
+function renderTaskHeading(data = "All tasks") {
 	const headingTwo = document.querySelector("h2");
 	if (headingTwo) {
 		headingTwo.innerText = data;
@@ -128,6 +128,32 @@ const filterTasksByProject = (e) => {
 	});
 };
 
+const filterTasksByDate = (e) => {
+	const dateMenu = e.currentTarget.getAttribute("data-side-menu");
+	const tasksArea = document.querySelector(".tasks-area");
+	const hTwo = tasksArea.querySelector("h2");
+	const allTasks = tasksArea.querySelectorAll(".task-container");
+	let eligible;
+
+	if (dateMenu == "Past due") {
+		eligible = tasksArea.querySelectorAll('[data-category="past-due"]');
+	} else if (dateMenu == "Due today") {
+		eligible = tasksArea.querySelectorAll('[data-category="due-today"]');
+	} else if (dateMenu == "Due this week") {
+		eligible = tasksArea.querySelectorAll('[this-week="true"]');
+	}
+
+	[...allTasks].forEach((item) => {
+		if (item != hTwo) {
+			item.classList.add("no-display");
+		}
+	});
+
+	[...eligible].forEach((item) => {
+		item.classList.remove("no-display");
+	});
+};
+
 const showAllTasks = () => {
 	const tasksArea = document.querySelector(".tasks-area");
 	const allTasks = tasksArea.querySelectorAll(".task-container");
@@ -144,4 +170,10 @@ pubSub.subscribe("task-added", dateCategorizer.assignDateStatus);
 pubSub.subscribe("task-ui-removed", removeTaskData);
 pubSub.subscribe("task-modified", renderModifiedTask);
 
-export { renderTaskHeading, renderTask, filterTasksByProject, showAllTasks };
+export {
+	renderTaskHeading,
+	renderTask,
+	filterTasksByProject,
+	showAllTasks,
+	filterTasksByDate,
+};
