@@ -45,6 +45,7 @@ const removeTaskData = (key) => {
 		}
 	}
 	pubSub.publish("task-deleted", deletedIndex, taskProject);
+	// console.log(tasks);
 };
 
 //Function to modify data
