@@ -8,6 +8,7 @@ import {
 	filterTasksByProject,
 	renderTaskHeading,
 	showAllTasks,
+	filterTasksByDate,
 } from "./create-task-panel";
 
 function createHamburger() {
@@ -117,8 +118,8 @@ function createDashboardStructure() {
 function createSideMenu() {
 	const menuArea = document.querySelector(".menu-area");
 	const menuItems = [
-		"All Tasks",
-		"Past Due",
+		"All tasks",
+		"Past due",
 		"Due today",
 		"Due this week",
 		"Completed",
@@ -148,7 +149,10 @@ function createSideMenu() {
 
 		if (i == 0) {
 			menuItemContainer.addEventListener("click", showAllTasks);
+		} else if (i > 0 && i < 4) {
+			menuItemContainer.addEventListener("click", filterTasksByDate);
 		}
+
 		menuItemContainer.addEventListener("click", changeHeading);
 
 		menuItemContainer.append(menuItemImage, menuItem);
