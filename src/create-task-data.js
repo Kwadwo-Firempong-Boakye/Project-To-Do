@@ -1,4 +1,5 @@
 import pubSub from "./pub-sub";
+import { localStorageCommitTasks, localStorageCommitProjects } from "./storage";
 
 //Data storage array;
 const tasks = [
@@ -215,8 +216,12 @@ const dateCategorizer = categorizeAndFilter();
 pubSub.subscribe("task-added", storeTaskData);
 pubSub.subscribe("task-added", cacheIndexes);
 pubSub.subscribe("task-added", taskIdentityNumber.increaseIdNumber);
+pubSub.subscribe("task-added", localStorageCommitTasks);
 pubSub.subscribe("task-deleted", removeDeletedCacheIndex);
+pubSub.subscribe("task-deleted", localStorageCommitTasks);
+pubSub.subscribe("task-modified", localStorageCommitTasks);
 pubSub.subscribe("project-ui-added", storeProjectsUi);
+pubSub.subscribe("project-ui-added", localStorageCommitProjects);
 
 export {
 	tasks,
