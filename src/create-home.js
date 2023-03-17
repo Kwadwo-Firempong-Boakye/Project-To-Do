@@ -157,6 +157,26 @@ function createSideMenu() {
 		}
 
 		menuItemContainer.addEventListener("click", changeHeading);
+		menuItemContainer.addEventListener("click", () => {
+			const compStyle = window.getComputedStyle(menuArea);
+			const checkDisplayState = compStyle.display !== "none";
+
+			if (window.innerWidth <= 550) {
+				if (checkDisplayState) {
+					setTimeout(() => {
+						menuArea.classList.add("no-display");
+					}, 200);
+					menuArea.classList.toggle("hide-side-menu");
+				} else {
+					menuArea.classList.remove("no-display");
+					setTimeout(() => {
+						menuArea.classList.toggle("hide-side-menu");
+					}, 10);
+				}
+
+				clearDetails();
+			}
+		});
 
 		menuItemContainer.append(menuItemImage, menuItem);
 	});
@@ -193,6 +213,29 @@ const createProjectMenu = () => {
 	addProjectButton.addEventListener("click", openProjectForm);
 	projectDiv.addEventListener("click", changeHeading);
 	projectDiv.addEventListener("click", filterTasksByProject);
+
+	projectDiv.addEventListener("click", () => {
+		const menuArea = document.querySelector(".menu-area");
+
+		const compStyle = window.getComputedStyle(menuArea);
+		const checkDisplayState = compStyle.display !== "none";
+
+		if (window.innerWidth <= 550) {
+			if (checkDisplayState) {
+				setTimeout(() => {
+					menuArea.classList.add("no-display");
+				}, 200);
+				menuArea.classList.toggle("hide-side-menu");
+			} else {
+				menuArea.classList.remove("no-display");
+				setTimeout(() => {
+					menuArea.classList.toggle("hide-side-menu");
+				}, 10);
+			}
+
+			clearDetails();
+		}
+	});
 };
 
 const openProjectForm = () => {
@@ -240,24 +283,45 @@ const openProjectForm = () => {
 	}, 200);
 
 	projectSubmitButton.setAttribute("data-action", "add-project");
-
 	projectFormContainer.addEventListener("click", closeForm);
 	projectFormContent.addEventListener("submit", submitForm);
 };
 
-const addProject = () => {
-	const projectName = document.querySelector("#project-title").value;
+const addProject = (pName) => {
+	// const projectName = document.querySelector("#project-title").value;
 	const projectArea = document.querySelector(".project-area");
 	const projectDiv = document.createElement("div");
 	projectArea.append(projectDiv);
 	projectDiv.classList.add("project-div");
-	projectDiv.setAttribute("data-project", projectName);
+	projectDiv.setAttribute("data-project", pName);
 	projectDiv.addEventListener("click", changeHeading);
 	projectDiv.addEventListener("click", filterTasksByProject);
 
-	projectDiv.innerText = "# " + projectName;
+	projectDiv.innerText = "# " + pName;
+	projectDiv.addEventListener("click", () => {
+		const menuArea = document.querySelector(".menu-area");
 
-	pubSub.publish("project-ui-added", projectName);
+		const compStyle = window.getComputedStyle(menuArea);
+		const checkDisplayState = compStyle.display !== "none";
+
+		if (window.innerWidth <= 550) {
+			if (checkDisplayState) {
+				setTimeout(() => {
+					menuArea.classList.add("no-display");
+				}, 200);
+				menuArea.classList.toggle("hide-side-menu");
+			} else {
+				menuArea.classList.remove("no-display");
+				setTimeout(() => {
+					menuArea.classList.toggle("hide-side-menu");
+				}, 10);
+			}
+
+			clearDetails();
+		}
+	});
+
+	pubSub.publish("project-ui-added", pName);
 };
 
 const changeHeading = (e) => {
