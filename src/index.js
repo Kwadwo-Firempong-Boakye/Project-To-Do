@@ -7,6 +7,7 @@ import {
 	createProjectMenu,
 } from "./create-home";
 import { renderTaskHeading } from "./create-task-panel";
+import { pageLoader } from "./storage";
 
 const createInterface = () => {
 	createHeader();
@@ -15,6 +16,7 @@ const createInterface = () => {
 	createSideMenu();
 	createProjectMenu();
 	renderTaskHeading();
+	pageLoader();
 };
 
 window.addEventListener("load", createInterface);
