@@ -114,6 +114,24 @@ function createDashboardStructure() {
 	menuArea.classList.add("menu-area");
 	tasksArea.classList.add("tasks-area");
 	detailsArea.classList.add("details-area", "no-display", "hide-details-panel");
+
+	tasksArea.addEventListener("click", () => {
+		const menuArea = document.querySelector(".menu-area");
+
+		const compStyle = window.getComputedStyle(menuArea);
+		const checkDisplayState = compStyle.display !== "none";
+
+		if (window.innerWidth <= 550) {
+			if (checkDisplayState) {
+				setTimeout(() => {
+					menuArea.classList.add("no-display");
+				}, 200);
+				menuArea.classList.toggle("hide-side-menu");
+			}
+
+			// clearDetails();
+		}
+	});
 }
 
 function createSideMenu() {
@@ -193,20 +211,26 @@ function createSideMenu() {
 const createProjectMenu = () => {
 	const menuArea = document.querySelector(".menu-area");
 	const projectArea = document.createElement("div");
+	const projectHeadingContainer = document.createElement("section");
 	const projectHeading = document.createElement("p");
 	const addProjectButton = document.createElement("button");
+	const projectDivContainer = document.createElement("section");
 	const projectDiv = document.createElement("div");
 
-	menuArea.append(projectArea, addProjectButton);
-	projectArea.append(projectHeading, projectDiv);
+	menuArea.append(projectArea);
+	projectArea.append(projectHeadingContainer, projectDivContainer);
+	projectHeadingContainer.append(projectHeading, addProjectButton);
+	projectDivContainer.append(projectDiv);
 
-	addProjectButton.innerText = "+ Add New Project";
+	addProjectButton.innerText = "Add Project";
 	projectHeading.innerText = "Projects";
 	projectDiv.innerText = "# General";
 	projectDiv.setAttribute("data-project", "General");
 
 	projectArea.classList.add("project-area");
+	projectHeadingContainer.classList.add("project-heading-container");
 	projectHeading.classList.add("project-heading");
+	projectDivContainer.classList.add("project-div-container");
 	projectDiv.classList.add("project-div");
 	addProjectButton.classList.add("project-button");
 
@@ -290,8 +314,9 @@ const openProjectForm = () => {
 const addProject = (pName) => {
 	// const projectName = document.querySelector("#project-title").value;
 	const projectArea = document.querySelector(".project-area");
+	const projectDivContainer = document.querySelector(".project-div-container");
 	const projectDiv = document.createElement("div");
-	projectArea.append(projectDiv);
+	projectDivContainer.append(projectDiv);
 	projectDiv.classList.add("project-div");
 	projectDiv.setAttribute("data-project", pName);
 	projectDiv.addEventListener("click", changeHeading);
