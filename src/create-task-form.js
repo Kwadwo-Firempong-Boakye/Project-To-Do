@@ -246,7 +246,8 @@ function submitForm(e) {
 		modifyTaskData(taskIndex);
 		resetForm();
 	} else if (formAction == "add-project") {
-		addProject();
+		const projectName = e.currentTarget.querySelector("input").value;
+		addProject(projectName);
 		resetForm();
 	}
 }
