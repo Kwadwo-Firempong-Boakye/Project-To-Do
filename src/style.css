@@ -810,7 +810,11 @@ body {
 }
 
 .project-heading-container {
+	display: -webkit-box;
+	display: -ms-flexbox;
 	display: flex;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
 	align-items: center;
 	border-top: 1px solid var(--divider-color);
 	border-bottom: 1px solid var(--divider-color);
