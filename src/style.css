@@ -144,6 +144,8 @@ body {
 	width: 100%;
 	height: calc(100dvh - 68px);
 	overflow-y: scroll;
+	scrollbar-color: rgb(93, 150, 189);
+	scrollbar-width: thin;
 	margin-left: 1.5rem;
 	/* margin-right: 0.5rem; */
 	-webkit-transition: all 0.4s ease-in-out;
@@ -837,6 +839,8 @@ body {
 	padding-bottom: 1.5rem;
 	max-height: 20rem;
 	overflow-y: scroll;
+	scrollbar-color: rgb(93, 150, 189);
+	scrollbar-width: thin;
 }
 
 .project-div {
