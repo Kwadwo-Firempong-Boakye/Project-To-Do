@@ -44,12 +44,15 @@ body {
 	align-items: center;
 	gap: 0.5rem;
 	padding: 0.5rem 1.25rem;
+	flex-wrap: nowrap;
 }
 
 .logo-area p {
 	font-weight: bold;
 	font-size: 1.5rem;
 	margin: 0;
+	white-space: nowrap;
+	/* border: 1px solid red; */
 }
 
 .logo-area img {
@@ -130,6 +133,7 @@ body {
 	transform: translateX(0px);
 	position: relative;
 	z-index: 6;
+	overflow-y: scroll;
 }
 
 .tasks-area {
@@ -993,8 +997,14 @@ body {
 	}
 
 	.project-div-container {
-		max-height: 12rem;
+		max-height: 7rem;
+		/* border: 1px solid #a3c5f6; */
 		overflow-y: scroll;
+		padding-bottom: 6rem;
+	}
+
+	.project-div {
+		font-size: 1rem;
 	}
 }
 
@@ -1004,7 +1014,7 @@ body {
 	}
 
 	.logo-area p {
-		font-size: 1.1rem;
+		font-size: 1.3rem;
 	}
 
 	.logo-area img {
@@ -1022,6 +1032,14 @@ body {
 
 	.header-menu img {
 		display: none;
+	}
+
+	.menu-item-container {
+		padding: 0.8rem 1.25rem 0.8rem 1.25rem;
+	}
+
+	.menu-item {
+		font-size: 1rem;
 	}
 
 	.details-area {
@@ -1061,5 +1079,9 @@ body {
 
 	.task-container span {
 		margin-top: 1.5rem;
+	}
+
+	.project-heading {
+		font-size: 1rem;
 	}
 }
